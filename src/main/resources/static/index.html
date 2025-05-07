@@ -2,294 +2,152 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>部门管理系统</title>
-    <!-- 引入Element UI的样式 -->
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-    <!-- 引入Vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-    <!-- 引入Element UI组件库 -->
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-    <!-- 引入axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Microsoft YaHei', sans-serif;
-            background-color: #f5f7fa;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        .container {
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .header {
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header h2 {
-            color: #2c3e50;
-            font-size: 24px;
-        }
-
-        .el-table {
-            margin-top: 20px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-        }
-
-        .dept-info {
-            margin-top: 20px;
-        }
-
-        .info-item {
-            display: flex;
-            padding: 12px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .info-item:last-child {
-            border-bottom: none;
-        }
-
-        .info-label {
-            width: 100px;
-            font-weight: bold;
-            color: #666;
-        }
-
-        .info-value {
-            flex: 1;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 20px;
-            color: #666;
-        }
-
-        .error {
-            background-color: #fff2f0;
-            border: 1px solid #ffccc7;
-            color: #ff4d4f;
-            padding: 12px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
-
-        .search-box {
-            margin-bottom: 20px;
-            display: flex;
-            gap: 10px;
-        }
-
-        .search-input {
-            flex: 1;
-            padding: 8px 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-
-        .search-button {
-            padding: 8px 16px;
-            background-color: #409EFF;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .search-button:hover {
-            background-color: #66b1ff;
-        }
+        body { background: #f5f7fa; font-family: 'Microsoft YaHei', sans-serif; }
+        .container { max-width: 1200px; margin: 30px auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,0.1); padding: 30px; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .header h2 { margin: 0; }
+        .btn { padding: 6px 16px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; }
+        .btn-primary { background: #409EFF; color: #fff; }
+        .btn-danger { background: #f56c6c; color: #fff; }
+        .btn[disabled] { background: #ccc; cursor: not-allowed; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #eee; padding: 10px; text-align: center; }
+        th { background: #f8f8f8; }
+        tr:nth-child(even) { background: #fafbfc; }
+        .dialog-mask { position: fixed; left: 0; top: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.2); z-index: 99; }
+        .dialog { position: fixed; left: 50%; top: 50%; transform: translate(-50%,-50%); background: #fff; border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,0.2); padding: 30px 40px; z-index: 100; min-width: 300px; }
+        .dialog-title { font-size: 18px; margin-bottom: 20px; }
+        .dialog-footer { text-align: right; margin-top: 20px; }
+        .input { width: 100%; padding: 8px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+        .error { color: #f56c6c; margin-bottom: 10px; }
     </style>
 </head>
 <body>
-    <div id="app" class="container">
-        <div class="header">
-            <h2>部门管理系统</h2>
-            <el-button type="primary" @click="showAddDialog">新增部门</el-button>
-        </div>
-
-        <!-- 部门列表 -->
-        <el-table :data="deptList" border style="width: 100%">
-            <el-table-column prop="id" label="ID" width="80"></el-table-column>
-            <el-table-column prop="name" label="部门名称"></el-table-column>
-            <el-table-column prop="createTime" label="创建时间" width="180"></el-table-column>
-            <el-table-column prop="updateTime" label="更新时间" width="180"></el-table-column>
-            <el-table-column label="操作" width="220">
-                <template slot-scope="scope">
-                    <el-button type="primary" size="mini" @click="showEditDialog(scope.row)">编辑</el-button>
-                    <el-button type="danger" size="mini" @click="handleDelete(scope.row)">删除</el-button>
-                </template>
-            </el-table-column>
-        </el-table>
-
-        <!-- 新增部门对话框 -->
-        <el-dialog title="新增部门" :visible.sync="dialogVisible" width="30%">
-            <el-form :model="form" label-width="80px">
-                <el-form-item label="部门名称">
-                    <el-input v-model="form.name" placeholder="请输入部门名称"></el-input>
-                </el-form-item>
-            </el-form>
-            <span slot="footer" class="dialog-footer">
-                <el-button @click="dialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="handleAdd">确 定</el-button>
-            </span>
-        </el-dialog>
-
-        <!-- 编辑部门对话框 -->
-        <el-dialog title="编辑部门" :visible.sync="editDialogVisible" width="30%">
-            <el-form :model="editForm" label-width="80px">
-                <el-form-item label="部门名称">
-                    <el-input v-model="editForm.name" placeholder="请输入部门名称"></el-input>
-                </el-form-item>
-            </el-form>
-            <span slot="footer" class="dialog-footer">
-                <el-button @click="editDialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="handleEdit">确 定</el-button>
-            </span>
-        </el-dialog>
+<div id="app" class="container">
+    <div class="header">
+        <h2>部门管理系统</h2>
+        <button class="btn btn-primary" @click="openAddDialog">新增部门</button>
     </div>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>部门名称</th>
+                <th>创建时间</th>
+                <th>更新时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="dept in deptList" :key="dept.id">
+                <td>{{ dept.id }}</td>
+                <td>{{ dept.name }}</td>
+                <td>{{ dept.createTime }}</td>
+                <td>{{ dept.updateTime }}</td>
+                <td>
+                    <button class="btn btn-primary" @click="openEditDialog(dept)">编辑</button>
+                    <button class="btn btn-danger" @click="deleteDept(dept)">删除</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-    <script>
-        new Vue({
-            el: '#app',
-            data() {
-                return {
-                    deptList: [],
-                    dialogVisible: false,
-                    form: { name: '' },
-                    editDialogVisible: false,
-                    editForm: { id: '', name: '' }
+    <!-- 新增/编辑对话框 -->
+    <div v-if="dialogVisible" class="dialog-mask" @click.self="closeDialog">
+        <div class="dialog">
+            <div class="dialog-title">{{ dialogType === 'add' ? '新增部门' : '编辑部门' }}</div>
+            <div v-if="errorMsg" class="error">{{ errorMsg }}</div>
+            <input class="input" v-model="form.name" placeholder="请输入部门名称" />
+            <div class="dialog-footer">
+                <button class="btn" @click="closeDialog">取消</button>
+                <button class="btn btn-primary" @click="dialogType === 'add' ? addDept() : editDept()">
+                    确定
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+new Vue({
+    el: '#app',
+    data: {
+        deptList: [],
+        dialogVisible: false,
+        dialogType: 'add', // 'add' or 'edit'
+        form: { id: '', name: '' },
+        errorMsg: ''
+    },
+    created() {
+        this.loadDeptList();
+    },
+    methods: {
+        loadDeptList() {
+            axios.get('/depts').then(res => {
+                if (res.data.code === 1) {
+                    this.deptList = res.data.data;
                 }
-            },
-            created() {
-                this.loadDeptList();
-            },
-            methods: {
-                // 加载部门列表
-                loadDeptList() {
-                    axios.get('/depts')
-                        .then(response => {
-                            if (response.data.code === 1) {
-                                this.deptList = response.data.data;
-                            } else {
-                                this.$message.error('获取部门列表失败');
-                            }
-                        })
-                        .catch(error => {
-                            this.$message.error('获取部门列表失败');
-                            console.error(error);
-                        });
-                },
-                // 显示新增对话框
-                showAddDialog() {
-                    this.dialogVisible = true;
-                    this.form.name = '';
-                },
-                // 处理新增部门
-                handleAdd() {
-                    if (!this.form.name) {
-                        this.$message.warning('请输入部门名称');
-                        return;
-                    }
-                    const params = new URLSearchParams();
-                    params.append('name', this.form.name);
-                    axios.post('/depts', params)
-                        .then(response => {
-                            if (response.data.code === 1) {
-                                this.$message.success('新增部门成功');
-                                this.dialogVisible = false;
-                                this.loadDeptList();
-                            } else {
-                                this.$message.error('新增部门失败');
-                            }
-                        })
-                        .catch(error => {
-                            this.$message.error('新增部门失败');
-                            console.error(error);
-                        });
-                },
-                // 显示编辑对话框
-                showEditDialog(row) {
-                    this.editForm.id = row.id;
-                    this.editForm.name = row.name;
-                    this.editDialogVisible = true;
-                },
-                // 处理编辑部门
-                handleEdit() {
-                    if (!this.editForm.name) {
-                        this.$message.warning('请输入部门名称');
-                        return;
-                    }
-                    const params = new URLSearchParams();
-                    params.append('id', this.editForm.id);
-                    params.append('name', this.editForm.name);
-                    axios.put('/depts', params)
-                        .then(response => {
-                            if (response.data.code === 1) {
-                                this.$message.success('编辑成功');
-                                this.editDialogVisible = false;
-                                this.loadDeptList();
-                            } else {
-                                this.$message.error('编辑失败');
-                            }
-                        })
-                        .catch(error => {
-                            this.$message.error('编辑失败');
-                            console.error(error);
-                        });
-                },
-                // 处理删除部门
-                handleDelete(row) {
-                    this.$confirm('确认删除该部门吗？', '提示', {
-                        confirmButtonText: '确定',
-                        cancelButtonText: '取消',
-                        type: 'warning'
-                    }).then(() => {
-                        axios.delete('/depts', {
-                            params: {
-                                deptId: row.id
-                            }
-                        })
-                            .then(response => {
-                                if (response.data.code === 1) {
-                                    this.$message.success('删除成功');
-                                    this.loadDeptList();
-                                } else {
-                                    this.$message.error('删除失败');
-                                }
-                            })
-                            .catch(error => {
-                                this.$message.error('删除失败');
-                                console.error(error);
-                            });
-                    }).catch(() => {
-                        this.$message.info('已取消删除');
-                    });
-                }
+            });
+        },
+        openAddDialog() {
+            this.dialogType = 'add';
+            this.form = { id: '', name: '' };
+            this.errorMsg = '';
+            this.dialogVisible = true;
+        },
+        openEditDialog(dept) {
+            this.dialogType = 'edit';
+            this.form = { id: dept.id, name: dept.name };
+            this.errorMsg = '';
+            this.dialogVisible = true;
+        },
+        closeDialog() {
+            this.dialogVisible = false;
+        },
+        addDept() {
+            if (!this.form.name.trim()) {
+                this.errorMsg = '部门名称不能为空';
+                return;
             }
-        });
-    </script>
+            axios.post('/depts', { name: this.form.name }).then(res => {
+                if (res.data.code === 1) {
+                    this.dialogVisible = false;
+                    this.loadDeptList();
+                } else {
+                    this.errorMsg = '新增失败';
+                }
+            });
+        },
+        editDept() {
+            if (!this.form.name.trim()) {
+                this.errorMsg = '部门名称不能为空';
+                return;
+            }
+            axios.put('/depts', { id: this.form.id, name: this.form.name }).then(res => {
+                if (res.data.code === 1) {
+                    this.dialogVisible = false;
+                    this.loadDeptList();
+                } else {
+                    this.errorMsg = '编辑失败';
+                }
+            });
+        },
+        deleteDept(dept) {
+            if (!confirm('确定要删除吗？')) return;
+            axios.delete('/depts', { params: { deptId: dept.id } }).then(res => {
+                if (res.data.code === 1) {
+                    this.loadDeptList();
+                } else {
+                    alert('删除失败');
+                }
+            });
+        }
+    }
+});
+</script>
 </body>
 </html>
