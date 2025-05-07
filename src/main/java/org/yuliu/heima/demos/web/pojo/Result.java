@@ -1,5 +1,10 @@
+
+
 package org.yuliu.heima.demos.web.pojo;
 
+import lombok.Data;
+
+@Data
 public class Result {
     private int code;//1成功 0失败
     private String msg;
