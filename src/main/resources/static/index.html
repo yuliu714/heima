@@ -57,10 +57,14 @@
     </table>
 
     <!-- 新增/编辑对话框 -->
+    <!--模块主题 -->
     <div v-if="dialogVisible" class="dialog-mask" @click.self="closeDialog">
         <div class="dialog">
+            <!--三元表达式，决定显示的文字 -->
             <div class="dialog-title">{{ dialogType === 'add' ? '新增部门' : '编辑部门' }}</div>
+            <!-- v-if 是否显示-->
             <div v-if="errorMsg" class="error">{{ errorMsg }}</div>
+            <!-- input输入框 -->
             <input class="input" v-model="form.name" placeholder="请输入部门名称" />
             <div class="dialog-footer">
                 <button class="btn" @click="closeDialog">取消</button>
@@ -70,19 +74,25 @@
             </div>
         </div>
     </div>
+    
+    <input type="text" v-model="deptId" placeholder="请输入部门ID">
+    <button @click="getById(deptId)">查询</button>
+    
 </div>
 
 <script>
 new Vue({
     el: '#app',
+    //data主体，deptList部门列表，dialogVisible对话框是否显示，dialogType对话框类型，form表单数据，errorMsg错误信息
     data: {
         deptList: [],
         dialogVisible: false,
         dialogType: 'add', // 'add' or 'edit'
         form: { id: '', name: '' },
+        deptId:'',
         errorMsg: ''
     },
-    created() {
+    created() {//created()钩子函数，在vue创建后立即调用
         this.loadDeptList();
     },
     methods: {
@@ -113,7 +123,9 @@ new Vue({
                 this.errorMsg = '部门名称不能为空';
                 return;
             }
-            axios.post('/depts', { name: this.form.name }).then(res => {
+            axios.post('/depts',
+                { name: this.form.name }//这里的内容按照json语法传给后端
+            ).then(res => {
                 if (res.data.code === 1) {
                     this.dialogVisible = false;
                     this.loadDeptList();
@@ -143,6 +155,16 @@ new Vue({
                     this.loadDeptList();
                 } else {
                     alert('删除失败');
+                }
+            });
+        },
+        getById(deptId){
+            axios.get('/depts/'+deptId).then(res => {
+                if (res.data.code === 1) {
+                    this.deptList = [res.data.data];
+                    console.log(this.deptList);
+                    console.log('/depts/'+deptId);
+
                 }
             });
         }
