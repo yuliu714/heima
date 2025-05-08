@@ -71,6 +71,10 @@
             </div>
         </div>
     </div>
+    <input v-model="deptId"  placeholder="查询的部门id"/>
+    <button @click="getById(deptId)">查询</button>
+    <button @click="loadDeptList()">重置</button>
+
 </div>
 <script>
 new Vue({
@@ -80,6 +84,7 @@ new Vue({
         dialogVisible: false,
         dialogType: 'add',
         form: { id: '', name: '' },
+        deptId: '',
         errorMsg: ''
     },
     created() {
@@ -149,6 +154,14 @@ new Vue({
                 .catch(err => {
                     alert('删除失败: 网络或服务器错误');
                 });
+        },
+        getById(deptId){
+            axios.get('/depts/'+deptId).then(res=>{
+                if(res.data.code===1){
+                    this.deptList=[res.data.data];
+                }
+            })
+
         }
     }
 });

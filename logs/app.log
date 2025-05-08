@@ -225,3 +225,40 @@ Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No q
 2025-05-08 22:23:45.392 [main] INFO  org.yuliu.heima.HeimaApplication - Started HeimaApplication in 1.558 seconds (JVM running for 2.183)
 2025-05-08 22:23:47.286 [http-nio-8080-exec-5] INFO  o.yuliu.heima.demos.web.controller.DeptController - 查询所有部门数据
 2025-05-08 22:23:49.543 [http-nio-8080-exec-10] INFO  o.yuliu.heima.demos.web.controller.DeptController - 查询所有部门数据
+2025-05-08 22:32:31.335 [main] INFO  org.yuliu.heima.HeimaApplication - Starting HeimaApplication using Java 17.0.14 on LAPTOP-UVSFVGV1 with PID 21712 (E:\javaweb\heima\target\classes started by yuliu in E:\javaweb\heima)
+2025-05-08 22:32:31.338 [main] INFO  org.yuliu.heima.HeimaApplication - No active profile set, falling back to 1 default profile: "default"
+2025-05-08 22:32:32.708 [main] INFO  org.yuliu.heima.HeimaApplication - Started HeimaApplication in 1.703 seconds (JVM running for 2.424)
+2025-05-08 22:32:35.861 [http-nio-8080-exec-3] INFO  o.yuliu.heima.demos.web.controller.DeptController - 查询所有部门数据
+2025-05-08 22:32:38.435 [http-nio-8080-exec-4] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：1
+2025-05-08 22:32:41.200 [http-nio-8080-exec-5] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：2
+2025-05-08 22:32:42.457 [http-nio-8080-exec-6] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：3
+2025-05-08 22:32:43.979 [http-nio-8080-exec-7] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：4
+2025-05-08 22:32:45.529 [http-nio-8080-exec-8] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：4
+2025-05-08 22:32:46.474 [http-nio-8080-exec-9] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：4
+2025-05-08 22:32:48.371 [http-nio-8080-exec-10] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：5
+2025-05-08 22:32:50.734 [http-nio-8080-exec-1] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：111
+2025-05-08 22:32:51.303 [http-nio-8080-exec-2] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：111
+2025-05-08 22:32:51.503 [http-nio-8080-exec-3] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：111
+2025-05-08 22:32:51.682 [http-nio-8080-exec-4] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：111
+2025-05-08 22:32:51.840 [http-nio-8080-exec-5] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：111
+2025-05-08 22:32:52.008 [http-nio-8080-exec-6] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：111
+2025-05-08 22:32:52.186 [http-nio-8080-exec-7] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：111
+2025-05-08 22:32:52.346 [http-nio-8080-exec-8] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：111
+2025-05-08 22:32:52.514 [http-nio-8080-exec-9] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：111
+2025-05-08 22:32:52.681 [http-nio-8080-exec-10] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：111
+2025-05-08 22:32:52.857 [http-nio-8080-exec-1] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：111
+2025-05-08 22:32:53.027 [http-nio-8080-exec-2] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：111
+2025-05-08 22:32:53.194 [http-nio-8080-exec-3] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：111
+2025-05-08 22:32:53.411 [http-nio-8080-exec-4] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：111
+2025-05-08 22:32:53.580 [http-nio-8080-exec-5] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：111
+2025-05-08 22:32:57.452 [http-nio-8080-exec-6] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：111
+2025-05-08 22:32:57.612 [http-nio-8080-exec-7] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：111
+2025-05-08 22:33:01.718 [http-nio-8080-exec-8] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：111
+2025-05-08 22:33:01.896 [http-nio-8080-exec-9] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：111
+2025-05-08 22:33:33.889 [main] INFO  org.yuliu.heima.HeimaApplication - Starting HeimaApplication using Java 17.0.14 on LAPTOP-UVSFVGV1 with PID 21756 (E:\javaweb\heima\target\classes started by yuliu in E:\javaweb\heima)
+2025-05-08 22:33:33.892 [main] INFO  org.yuliu.heima.HeimaApplication - No active profile set, falling back to 1 default profile: "default"
+2025-05-08 22:33:35.169 [main] INFO  org.yuliu.heima.HeimaApplication - Started HeimaApplication in 1.557 seconds (JVM running for 2.18)
+2025-05-08 22:33:35.273 [http-nio-8080-exec-4] INFO  o.yuliu.heima.demos.web.controller.DeptController - 查询所有部门数据
+2025-05-08 22:33:37.686 [http-nio-8080-exec-2] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：1
+2025-05-08 22:33:39.170 [http-nio-8080-exec-7] INFO  o.yuliu.heima.demos.web.controller.DeptController - 根据id查询部门：1111
+2025-05-08 22:33:39.715 [http-nio-8080-exec-6] INFO  o.yuliu.heima.demos.web.controller.DeptController - 查询所有部门数据
