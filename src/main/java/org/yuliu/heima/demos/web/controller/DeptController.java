@@ -27,11 +27,15 @@ public class DeptController {
     }
 
     @DeleteMapping
-    public Result delete( Integer deptId) {
+    public Result delete(Integer deptId) {
         log.info("删除部门：{}", deptId);
-        //又是controller调用service
-        deptService.deleteById(deptId);
-        return Result.success();
+        int success = deptService.deleteById(deptId);
+        if (success>0) {
+            return Result.success();
+        } else {
+            String a;
+            return Result.error("删除失败，部门不存在或有下属员工");
+        }
     }
 
     //ok这个新增的后端接口我来写，

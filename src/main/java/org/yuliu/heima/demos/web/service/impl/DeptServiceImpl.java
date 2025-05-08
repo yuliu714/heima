@@ -18,8 +18,8 @@ public class DeptServiceImpl implements DeptService {
     public List<Dept>  findAll() {
         return deptMapper.findAll();
     }
-    public void deleteById(Integer deptId) {
-        deptMapper.deleteById(deptId);
+    public int deleteById(Integer deptId) {
+        return deptMapper.deleteById(deptId);
         //impl里调用mapper，最后到mapper里实现sql操作
     }
     public void add(Dept dept) {
