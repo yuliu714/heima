@@ -17,9 +17,7 @@ public class Test1 {
 
     @Test
     public void test(){
-        List<Emp> empList = empMapper.list(1, 10);
-        for (Emp emp : empList) {
-            System.out.println(emp);
+        System.out.println(empMapper.count());
         }
-    }
+
 }

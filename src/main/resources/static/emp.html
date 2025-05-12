@@ -4,9 +4,10 @@
 
 
 <div id="app">
-    <table>
+    <table border="1">
         <thead>
             <tr>
+                <th>id</th>
                 <th>姓名</th>
                 <th>性别</th>
                 <th>头像</th>
@@ -19,10 +20,11 @@
         </thead>
         <tbody>
             <tr v-for="emp in empList" >
+                <td>{{ emp.id }}</td>
                 <td>{{ emp.name }}</td>
                 <td>{{ emp.gender === 1 ? '男' : '女' }}</td>
                 <td><img :src="emp.image" alt="头像" width="70" height="50"></td>
-                <td>{{ emp.deptId }}</td>
+                <td>部门{{ emp.deptId }}</td>
                 <td>{{ emp.job }}</td>
                 <td>{{ emp.entryDate }}</td>
                 <td>{{ emp.updateTime }}</td>
@@ -31,25 +33,48 @@
                     <button class="btn btn-danger" @click="deleteEmp(emp)">删除</button>
                 </td>
     </table>
+    <button class="btn btn-primary" @click="previousPage">上一页</button>
+    <button class="btn btn-primary" @click="nextPage">下一页</button>
+
 </div>
 <script>
 new Vue({
     el: '#app',
     data: {
         empList: [],
-        dialogVisible: false,
+        page:1,
+        pageSize:10,
+        totalPages:0
     },
     created() {
         this.loadEmpList();
     },
     methods: {
         loadEmpList() {
-            axios.get('/emps').then(res => {
+            axios.get('/emps',{
+                params:{
+                    page:this.page,
+                    pageSize:this.pageSize
+                }
+            }).then(res => {
                 if (res.data.code === 1) {
                     this.empList = res.data.data.rows;
+                    this.totalPages = res.data.data.total/this.pageSize;
                 }
             });
         },
+        previousPage() {
+            if (this.page > 1) {
+                this.page--;
+                this.loadEmpList();
+            }
+        },
+        nextPage() {
+            if(this.page < this.totalPages){
+                this.page++;
+                this.loadEmpList();
+            }
+        }
     }
 });
 </script>

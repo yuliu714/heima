@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+/logs/log.2025-05-08.0.log
+/logs/log.2025-05-09.0.log
