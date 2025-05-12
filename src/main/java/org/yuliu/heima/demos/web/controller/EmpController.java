@@ -26,6 +26,7 @@ public class EmpController {
     @GetMapping
     public Result page(EmpQueryParam empRequestParam){
         log.info("分页查询员工，参数empRequestParam：{},{}", empRequestParam);
+        log.info("begin={}, end={}", empRequestParam.getBegin(), empRequestParam.getEnd());
         PageResult pageResult = empService.page(empRequestParam);
         return Result.success(pageResult);
     }

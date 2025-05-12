@@ -9,11 +9,14 @@
             <if test="name !=null and name !=''">
                 e.name like concat('%',#{name},'%')
             </if>
-            <if test="gender!=null and gender!=''">
+            <if test="gender!=null">
                 and e.gender = #{gender}
             </if>
-            <if test="begin!=null and end!=null and begin!='' and end!=''">
-                and e.entry_date between #{begin} and #{end}
+            <if test="begin!=null ">
+                and e.entry_date >= #{begin}
+            </if>
+            <if test="end!=null  ">
+                and e.entry_date &lt;= #{end}  <!--   xml里不能用<    换成转义字符&lt;    -->
             </if>
         </where>
     </select>

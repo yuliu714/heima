@@ -4,6 +4,16 @@
 
 
 <div id="app">
+    <input v-model="name" placeholder="输入名字" />
+    <select v-model="gender">
+        <option value="">全部</option>
+        <option value="1">男</option>
+        <option value="2">女</option>
+    </select>
+    <input type="date" v-model="begin" />
+    <input type="date" v-model="end" />
+    <button @click="query">查询</button>
+
     <table border="1">
         <thead>
             <tr>
@@ -44,7 +54,11 @@ new Vue({
         empList: [],
         page:1,
         pageSize:10,
-        totalPages:0
+        totalPages:0,
+        name:'',
+        gender:'',
+        begin:'',
+        end:''
     },
     created() {
         this.loadEmpList();
@@ -54,7 +68,11 @@ new Vue({
             axios.get('/emps',{
                 params:{
                     page:this.page,
-                    pageSize:this.pageSize
+                    pageSize:this.pageSize,
+                    name:this.name,
+                    gender:this.gender,
+                    begin:this.begin,
+                    end:this.end
                 }
             }).then(res => {
                 if (res.data.code === 1) {
@@ -74,6 +92,10 @@ new Vue({
                 this.page++;
                 this.loadEmpList();
             }
+        },
+        query(){
+
+            this.loadEmpList();
         }
     }
 });
