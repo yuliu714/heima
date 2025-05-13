@@ -4,10 +4,8 @@ package org.yuliu.heima.demos.web.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.yuliu.heima.demos.web.pojo.Emp;
 import org.yuliu.heima.demos.web.pojo.EmpQueryParam;
 import org.yuliu.heima.demos.web.pojo.PageResult;
 import org.yuliu.heima.demos.web.pojo.Result;
@@ -29,5 +27,12 @@ public class EmpController {
         log.info("begin={}, end={}", empRequestParam.getBegin(), empRequestParam.getEnd());
         PageResult pageResult = empService.page(empRequestParam);
         return Result.success(pageResult);
+    }
+
+    @PostMapping
+    public Result add(@RequestBody Emp emp){
+        log.info("新增员工：{}", emp);
+        empService.add(emp);
+        return Result.success();
     }
 }

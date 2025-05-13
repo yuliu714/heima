@@ -13,6 +13,13 @@
     <input type="date" v-model="begin" />
     <input type="date" v-model="end" />
     <button @click="query">查询</button>
+    <button @click="addEmp">新增员工</button>
+    <div  @click="addEmp">
+
+            <p><input class="input" v-model="form.name" placeholder="请输入部门名称" />
+            </p>
+    </div>
+
 
     <table border="1">
         <thead>
@@ -58,7 +65,18 @@ new Vue({
         name:'',
         gender:'',
         begin:'',
-        end:''
+        end:'',
+        form:{
+            username:'',
+            name:'',
+            gender:'',
+            phone:'',
+            job:'',
+            salary:'',
+            deptId:'',
+            entryDate:'',
+            image:''
+        }
     },
     created() {
         this.loadEmpList();
@@ -96,6 +114,8 @@ new Vue({
         query(){
 
             this.loadEmpList();
+        },
+        addEmp(){
         }
     }
 });

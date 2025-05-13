@@ -15,4 +15,6 @@ public interface EmpMapper {
     public Long count();
 
     public List<Emp> list(EmpQueryParam empRequestParam);
+
+    void add(Emp emp);
 }

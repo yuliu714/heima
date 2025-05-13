@@ -20,4 +20,10 @@
             </if>
         </where>
     </select>
+
+    <select id="add"  >
+        insert into emp(name,gender,image,job,entry_date,create_time,update_time,dept_id)
+        values(#{name},#{gender},#{image},#{job},#{entryDate},#{createTime},#{updateTime},#{deptId})
+    </select>
+
 </mapper>

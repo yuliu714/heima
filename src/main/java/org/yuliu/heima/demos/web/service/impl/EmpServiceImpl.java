@@ -12,6 +12,7 @@ import org.yuliu.heima.demos.web.pojo.EmpQueryParam;
 import org.yuliu.heima.demos.web.pojo.PageResult;
 import org.yuliu.heima.demos.web.service.EmpService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -28,6 +29,14 @@ public class EmpServiceImpl implements EmpService {
         List<Emp> emplist = empMapper.list(empRequestParam);
         Page<Emp> p=(Page<Emp>)emplist;
         return new PageResult(p.getTotal(), p.getResult());
+    }
+    @Override
+    public void add(Emp emp) {
+        //补全属性
+        emp.setCreateTime(LocalDateTime.now());
+        emp.setUpdateTime(LocalDateTime.now());
+        //调用mapper保存
+        empMapper.add(emp);
     }
 
     @Test
