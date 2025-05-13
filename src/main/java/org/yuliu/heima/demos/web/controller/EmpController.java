@@ -5,10 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
-import org.yuliu.heima.demos.web.pojo.Emp;
-import org.yuliu.heima.demos.web.pojo.EmpQueryParam;
-import org.yuliu.heima.demos.web.pojo.PageResult;
-import org.yuliu.heima.demos.web.pojo.Result;
+import org.yuliu.heima.demos.web.pojo.*;
 import org.yuliu.heima.demos.web.service.EmpService;
 
 import java.time.LocalDate;
@@ -33,6 +30,12 @@ public class EmpController {
     public Result add(@RequestBody Emp emp){
         log.info("新增员工：{}", emp);
         empService.add(emp);
+        return Result.success();
+    }
+
+    @PostMapping("/p1")
+    public Result p1(@RequestBody Dept s1){
+        log.info("{}", s1);
         return Result.success();
     }
 }
