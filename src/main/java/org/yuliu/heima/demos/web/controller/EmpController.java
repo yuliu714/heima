@@ -38,4 +38,10 @@ public class EmpController {
         log.info("{}", s1);
         return Result.success();
     }
+
+    @PostMapping("/p2")
+    public Result p2(@RequestBody EmpExpr s2){
+        log.info("{}", s2);
+        return Result.success();
+    }
 }
